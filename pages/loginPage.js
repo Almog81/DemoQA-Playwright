@@ -3,14 +3,29 @@ exports.LoginPage = class LoginPage {
         this.page = page
         
         //Locators
-        this.txt_loginEmail = '#email'
-        this.txt_password = '#passwd'
-        this.btn_login = '#SubmitLogin'
+        this.txt_userName = '#userName'
+        this.txt_password = '#password'
+        this.btn_login = '#login'
+    }
+    
+    async removeAds() {
+        await this.page.evaluate(() => {
+            const ads = document.querySelectorAll('iframe[id^="google_ads_iframe"]');
+            ads.forEach(ad => ad.remove());
+        });
+    }
+
+    async safeClick(selector) {
+        const element = this.page.locator(selector);
+        await element.scrollIntoViewIfNeeded();
+        await this.page.waitForTimeout(500);
+        await element.click();
     }
     
     async loginAction(email, password){
-        await this.page.locator(this.txt_loginEmail).fill(email)
+        await this.removeAds();
+        await this.page.locator(this.txt_userName).fill(email)
         await this.page.locator(this.txt_password).fill(password)
-        await this.page.locator(this.btn_login).click()
+        await this.safeClick(this.btn_login)
     }
 }

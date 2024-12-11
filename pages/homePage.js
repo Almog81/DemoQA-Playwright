@@ -1,15 +1,19 @@
 exports.HomePage = class HomePage {
-    url = 'http://www.automationpractice.pl/index.php';
     constructor(page) {
         this.page = page 
-        this.lin_signIn = '.login'
-        this.btn_account = '.account'
+        // Locators
+        this.btn_login = '#login'
+        this.btn_userInfo = '#userName-value'
+        
+        // URLs
+        this.path = '/books'
     }
     
     async naviToHomePage(){
-        await this.page.goto(this.url)
+        await this.page.goto(this.path)
     }
+
     async naviToLogin(){
-        await this.page.locator(this.lin_signIn).click();
+        await this.page.locator(this.btn_login).click()
     }
 }
