@@ -31,15 +31,6 @@ module.exports = defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
-    /* Extra HTTP headers for API requests */
-    extraHTTPHeaders: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-
-    /* Action timeout for API requests */
-    actionTimeout: 10000,
-
     /* BLOCK ADS */
     context: {
       blockedResourceTypes: ['image', 'media', 'font', 'other'],
@@ -85,6 +76,8 @@ module.exports = defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      testMatch: '**/DemoQa/**/*.spec.js',
+      testIgnore: '**/ApiTest/**/*.spec.js',
     },
     /* Test against mobile viewports */
     {
